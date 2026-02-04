@@ -4,11 +4,38 @@ const User = require('../models/User');
 // Get all available courses
 const getAllCourses = async (req, res) => {
   try {
-    const courses = await Course.find().sort({ courseCode: 1 });
+    const { level, includeLevels } = req.query;
+
+    // Validate that level is provided
+    if (!level) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Level is required. Please provide your current level.'
+      });
+    }
+
+    // Build the query to include current level and any carry-over levels
+    let levelsToInclude = [level];
+    
+    // If includeLevels is provided (comma-separated string of levels), add them
+    if (includeLevels) {
+      const additionalLevels = includeLevels.split(',').map(l => l.trim());
+      levelsToInclude = [...new Set([...levelsToInclude, ...additionalLevels])];
+    }
+
+    // Find courses that match any of the specified levels
+    const courses = await Course.find({ 
+      level: { $in: levelsToInclude } 
+    }).sort({ level: 1, courseCode: 1 });
 
     res.status(200).json({
       status: 'success',
       count: courses.length,
+      currentLevel: level,
+      levelsIncluded: levelsToInclude,
+      message: levelsToInclude.length > 1 
+        ? 'Courses include carry-overs from previous levels' 
+        : 'Courses for your current level only',
       data: courses
     });
 
