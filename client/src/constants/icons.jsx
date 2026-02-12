@@ -62,3 +62,68 @@ export function EyeOffIcon({ className = 'h-4 w-4' }) {
     </svg>
   )
 }
+
+export function ChartIcon({ className = 'h-5 w-5' }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M4 19h16v2H4zM6 10h3v7H6zM11 6h3v11h-3zM16 12h3v5h-3z" />
+    </svg>
+  )
+}
+
+export function UsersIcon({ className = 'h-5 w-5' }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M16 12c1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3 1.3 3 3 3zm-8 0c1.7 0 3-1.3 3-3S9.7 6 8 6 5 7.3 5 9s1.3 3 3 3zm0 2c-2.7 0-8 1.4-8 4v2h10v-2c0-1.5.6-2.8 1.7-3.8-1-.1-2.2-.2-3.7-.2zm8 0c-.5 0-1 .1-1.4.1 1.4 1 2.4 2.5 2.4 4v2h7v-2c0-2.6-5.3-4-8-4z" />
+    </svg>
+  )
+}
+
+export function BookIcon({ className = 'h-5 w-5' }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M6 4h11a3 3 0 0 1 3 3v12a1 1 0 0 1-1 1H7a3 3 0 0 0-3 3V5a1 1 0 0 1 1-1zm1 2v12.1A4.9 4.9 0 0 1 9 18h9V7a1 1 0 0 0-1-1H7z" />
+    </svg>
+  )
+}
+
+export function PlusIcon({ className = 'h-5 w-5' }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M11 5h2v14h-2zM5 11h14v2H5z" />
+    </svg>
+  )
+}
+
+export function LogoutIcon({ className = 'h-5 w-5' }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={className}
+      fill="currentColor"
+    >
+      <path d="M14 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h9v-2H5V5h9V3zm3.6 4.6-1.4 1.4L18.2 11H9v2h9.2l-2 2 1.4 1.4L22 12l-4.4-4.4z" />
+    </svg>
+  )
+}

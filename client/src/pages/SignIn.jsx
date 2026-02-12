@@ -39,7 +39,14 @@ function SignIn() {
         email: form.email,
         password: form.password,
       })
-      setAuth({ token: response.data.token, user: response.data.user })
+      const nextUser = response.data.user
+      setAuth({ token: response.data.token, user: nextUser })
+
+      if (nextUser?.role === 'admin') {
+        navigate('/admin')
+        return
+      }
+
       await refresh()
       navigate('/dashboard')
     } catch (error) {
