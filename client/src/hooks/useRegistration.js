@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import api from '../lib/api.js'
 import storageKeys from '../constants/storageKeys.js'
 
@@ -11,7 +11,7 @@ function useRegistration() {
   const [payload, setPayload] = useState(getStoredRegistration)
   const [loading, setLoading] = useState(false)
 
-  const courses = payload?.courses || []
+  const courses = useMemo(() => payload?.courses || [], [payload])
 
   const totalUnits = useMemo(() => {
     if (payload?.totalUnits) {
@@ -35,7 +35,7 @@ function useRegistration() {
     return nextPayload
   }
 
-  const refresh = async () => {
+  const refresh = useCallback(async () => {
     const auth = sessionStorage.getItem(storageKeys.auth)
     if (!auth) {
       setFromPayload(null)
@@ -51,18 +51,18 @@ function useRegistration() {
         registeredAt: new Date().toISOString(),
       }
       return setFromPayload(nextPayload)
-    } catch (error) {
+    } catch {
       return setFromPayload(null)
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
 
   useEffect(() => {
     if (!payload) {
       refresh()
     }
-  }, [payload])
+  }, [payload, refresh])
 
   return {
     payload,
