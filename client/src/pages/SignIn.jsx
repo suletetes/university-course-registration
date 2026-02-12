@@ -53,7 +53,7 @@ function SignIn() {
   }
 
   return (
-    <AuthLayout heroImage={heroImage} badgeText="Spring intake opens Feb 20" badgePill="12 seats left">
+    <AuthLayout heroImage={heroImage} badgeText="Bayero University Kano" badgePill="Group ??">
       <div className="space-y-7">
         <div className="fade-up text-center">
           <p className="text-xs uppercase tracking-[0.35em] text-slate-400">
