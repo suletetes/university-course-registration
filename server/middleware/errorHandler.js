@@ -42,6 +42,8 @@ const errorHandler = (err, req, res, next) => {
 
   // Send error response with consistent format
   res.status(statusCode).json({
+    success: false,
+    status: 'error',
     error: getErrorType(statusCode),
     message: message,
     ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
@@ -51,10 +53,18 @@ const errorHandler = (err, req, res, next) => {
 // Helper function to map status codes to error types
 function getErrorType(statusCode) {
   if (statusCode >= 400 && statusCode < 500) {
-    if (statusCode === 400) return 'Validation Error';
-    if (statusCode === 401) return 'Unauthorized';
-    if (statusCode === 403) return 'Forbidden';
-    if (statusCode === 404) return 'Not Found';
+    if (statusCode === 400) {
+      return 'Validation Error';
+    }
+    if (statusCode === 401) {
+      return 'Unauthorized';
+    }
+    if (statusCode === 403) {
+      return 'Forbidden';
+    }
+    if (statusCode === 404) {
+      return 'Not Found';
+    }
     return 'Client Error';
   }
   return 'Internal Server Error';

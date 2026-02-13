@@ -37,6 +37,8 @@ const validateSignup = (req, res, next) => {
 
   if (errors.length > 0) {
     return res.status(400).json({
+      success: false,
+      status: 'error',
       error: 'Validation Error',
       message: errors.join(', ')
     });
@@ -59,6 +61,8 @@ const validateLogin = (req, res, next) => {
 
   if (errors.length > 0) {
     return res.status(400).json({
+      success: false,
+      status: 'error',
       error: 'Validation Error',
       message: errors.join(', ')
     });
@@ -105,6 +109,8 @@ const validateCourseCreation = (req, res, next) => {
 
   if (errors.length > 0) {
     return res.status(400).json({
+      success: false,
+      status: 'error',
       error: 'Validation Error',
       message: errors.join(', ')
     });
@@ -132,6 +138,8 @@ const validateCourseRegistration = (req, res, next) => {
 
   if (errors.length > 0) {
     return res.status(400).json({
+      success: false,
+      status: 'error',
       error: 'Validation Error',
       message: errors.join(', ')
     });
