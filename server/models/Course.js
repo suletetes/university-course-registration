@@ -8,7 +8,10 @@ const CourseSchema = new mongoose.Schema({
   level: { type: String, required: true, enum: ['100', '200', '300', '400', '500'] },
   prerequisites: { type: [String], default: [] },
   capacity: { type: Number, default: 50 },
-  enrolledCount: { type: Number, default: 0 }
+  enrolledCount: { type: Number, default: 0 },
+  isActive: { type: Boolean, default: true },
+  isArchived: { type: Boolean, default: false },
+  archivedAt: { type: Date, default: null }
 });
 
 // Virtual field for available seats

@@ -44,10 +44,13 @@ const getAdminStats = async (req, res, next) => {
   }
 };
 
-// Get all courses (admin)
+// Get all courses (admin) - include archived status
 const getAllCoursesAdmin = async (req, res, next) => {
   try {
-    const courses = await Course.find({}).sort({ level: 1, courseCode: 1 });
+    const { includeArchived } = req.query;
+    
+    const query = includeArchived === 'true' ? {} : { isArchived: false };
+    const courses = await Course.find(query).sort({ level: 1, courseCode: 1 });
 
     res.status(200).json({
       status: 'success',
@@ -63,7 +66,7 @@ const getAllCoursesAdmin = async (req, res, next) => {
 // Create a new course (admin)
 const createCourse = async (req, res, next) => {
   try {
-    const { courseCode, courseName, semester, creditUnit, level } = req.body;
+    const { courseCode, courseName, semester, creditUnit, level, capacity, prerequisites } = req.body;
 
     const existingCourse = await Course.findOne({
       courseCode: courseCode.toUpperCase(),
@@ -82,6 +85,8 @@ const createCourse = async (req, res, next) => {
       semester,
       creditUnit,
       level,
+      capacity: capacity || 50,
+      prerequisites: prerequisites || [],
     });
 
     res.status(201).json({
@@ -92,6 +97,148 @@ const createCourse = async (req, res, next) => {
   } catch (error) {
     console.error('Error creating course:', error);
     next(error); // Forward to error handler
+  }
+};
+
+// Update a course (admin)
+const updateCourse = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { courseCode, courseName, semester, creditUnit, level, capacity, prerequisites } = req.body;
+
+    const course = await Course.findById(id);
+
+    if (!course) {
+      return res.status(404).json({
+        error: 'Not Found',
+        message: 'Course not found',
+      });
+    }
+
+    // Check if courseCode is being changed and if it already exists
+    if (courseCode && courseCode.toUpperCase() !== course.courseCode) {
+      const existingCourse = await Course.findOne({
+        courseCode: courseCode.toUpperCase(),
+        _id: { $ne: id }
+      });
+
+      if (existingCourse) {
+        return res.status(400).json({
+          error: 'Validation Error',
+          message: 'Course code already exists',
+        });
+      }
+    }
+
+    // Update fields
+    if (courseCode) course.courseCode = courseCode.toUpperCase();
+    if (courseName) course.courseName = courseName;
+    if (semester) course.semester = semester;
+    if (creditUnit) course.creditUnit = creditUnit;
+    if (level) course.level = level;
+    if (capacity !== undefined) course.capacity = capacity;
+    if (prerequisites !== undefined) course.prerequisites = prerequisites;
+
+    await course.save();
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Course updated successfully',
+      data: course,
+    });
+  } catch (error) {
+    console.error('Error updating course:', error);
+    next(error);
+  }
+};
+
+// Archive a course (admin)
+const archiveCourse = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const course = await Course.findById(id);
+
+    if (!course) {
+      return res.status(404).json({
+        error: 'Not Found',
+        message: 'Course not found',
+      });
+    }
+
+    if (course.isArchived) {
+      return res.status(400).json({
+        error: 'Validation Error',
+        message: 'Course is already archived',
+      });
+    }
+
+    course.isArchived = true;
+    course.isActive = false;
+    course.archivedAt = new Date();
+    await course.save();
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Course archived successfully',
+      data: course,
+    });
+  } catch (error) {
+    console.error('Error archiving course:', error);
+    next(error);
+  }
+};
+
+// Restore an archived course (admin)
+const restoreCourse = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const course = await Course.findById(id);
+
+    if (!course) {
+      return res.status(404).json({
+        error: 'Not Found',
+        message: 'Course not found',
+      });
+    }
+
+    if (!course.isArchived) {
+      return res.status(400).json({
+        error: 'Validation Error',
+        message: 'Course is not archived',
+      });
+    }
+
+    course.isArchived = false;
+    course.isActive = true;
+    course.archivedAt = null;
+    await course.save();
+
+    res.status(200).json({
+      status: 'success',
+      message: 'Course restored successfully',
+      data: course,
+    });
+  } catch (error) {
+    console.error('Error restoring course:', error);
+    next(error);
+  }
+};
+
+// Get archived courses (admin)
+const getArchivedCourses = async (req, res, next) => {
+  try {
+    const courses = await Course.find({ isArchived: true }).sort({ archivedAt: -1 });
+
+    res.status(200).json({
+      status: 'success',
+      count: courses.length,
+      data: courses,
+    });
+  } catch (error) {
+    console.error('Error fetching archived courses:', error);
+    next(error);
   }
 };
 
@@ -161,6 +308,10 @@ module.exports = {
   getAdminStats,
   getAllCoursesAdmin,
   createCourse,
+  updateCourse,
+  archiveCourse,
+  restoreCourse,
+  getArchivedCourses,
   getRegistrationPeriod,
   updateRegistrationPeriod,
 };

@@ -24,8 +24,8 @@ const getAllCourses = async (req, res, next) => {
   try {
     const { level, includeLevels, search, semester } = req.query;
 
-    // Build query object
-    const query = {};
+    // Build query object - exclude archived courses for students
+    const query = { isArchived: false, isActive: true };
 
     // Level filtering
     if (level) {
