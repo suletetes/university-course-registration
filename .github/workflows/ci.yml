@@ -13,7 +13,7 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.18.0, 20.x]
     
     steps:
       - name: Checkout code
@@ -62,7 +62,7 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [18.18.0, 20.x]
     
     steps:
       - name: Checkout code
@@ -118,14 +118,14 @@ jobs:
       - name: Download server coverage
         uses: actions/download-artifact@v4
         with:
-          name: server-coverage-18.x
+          name: server-coverage-18.18.0
           path: server/coverage
         continue-on-error: true
       
       - name: Download client coverage
         uses: actions/download-artifact@v4
         with:
-          name: client-coverage-18.x
+          name: client-coverage-18.18.0
           path: client/coverage
         continue-on-error: true
       

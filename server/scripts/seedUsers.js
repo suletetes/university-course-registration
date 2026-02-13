@@ -102,13 +102,93 @@ const seedUsers = async () => {
 
       // Only register courses for students
       if (userData.role === 'student') {
-        // Get sample courses for the student's level
-        const sampleCourses = await Course.find({ 
-          level: userData.level, 
-          semester: 1 
-        }).limit(5);
+        // Build a realistic course history based on student level
+        // Students should have completed courses from previous levels
         
-        registeredCourses = sampleCourses.map(course => course._id);
+        const coursesToRegister = [];
+        
+        // Level 100 students: Register level 100 courses only
+        if (userData.level === '100') {
+          const level100Courses = await Course.find({ 
+            level: '100', 
+            semester: 1 
+          }).limit(5);
+          coursesToRegister.push(...level100Courses);
+        }
+        
+        // Level 200 students: Register some level 100 + level 200 courses
+        if (userData.level === '200') {
+          // Add prerequisite level 100 courses
+          const level100Courses = await Course.find({ 
+            level: '100',
+            courseCode: { $in: ['CSC1102', 'CSC1104', 'CSC1105'] }
+          });
+          coursesToRegister.push(...level100Courses);
+          
+          // Add level 200 courses
+          const level200Courses = await Course.find({ 
+            level: '200', 
+            semester: 1 
+          }).limit(3);
+          coursesToRegister.push(...level200Courses);
+        }
+        
+        // Level 300 students: Register level 100 + 200 + 300 courses
+        if (userData.level === '300') {
+          // Add prerequisite level 100 courses
+          const level100Courses = await Course.find({ 
+            level: '100',
+            courseCode: { $in: ['CSC1102', 'CSC1104', 'CSC1105', 'CSC1203'] }
+          });
+          coursesToRegister.push(...level100Courses);
+          
+          // Add prerequisite level 200 courses
+          const level200Courses = await Course.find({ 
+            level: '200',
+            courseCode: { $in: ['CSC2101', 'CSC2102', 'CSC2103', 'CSC2104'] }
+          });
+          coursesToRegister.push(...level200Courses);
+          
+          // Add level 300 courses
+          const level300Courses = await Course.find({ 
+            level: '300', 
+            semester: 1 
+          }).limit(2);
+          coursesToRegister.push(...level300Courses);
+        }
+        
+        // Level 400 students: Register courses from all levels
+        if (userData.level === '400') {
+          // Add prerequisite level 100 courses
+          const level100Courses = await Course.find({ 
+            level: '100',
+            courseCode: { $in: ['CSC1102', 'CSC1104', 'CSC1105', 'CSC1203'] }
+          });
+          coursesToRegister.push(...level100Courses);
+          
+          // Add prerequisite level 200 courses
+          const level200Courses = await Course.find({ 
+            level: '200',
+            courseCode: { $in: ['CSC2101', 'CSC2102', 'CSC2103', 'CSC2104'] }
+          });
+          coursesToRegister.push(...level200Courses);
+          
+          // Add prerequisite level 300 courses
+          const level300Courses = await Course.find({ 
+            level: '300',
+            courseCode: { $in: ['CSC3101', 'CSC3102', 'CSC3103'] }
+          });
+          coursesToRegister.push(...level300Courses);
+          
+          // Add level 400 courses (only those with met prerequisites)
+          const level400Courses = await Course.find({ 
+            level: '400',
+            courseCode: { $in: ['CSC4101', 'CSC4102', 'CSC4103', 'CSC4105'] }
+          });
+          coursesToRegister.push(...level400Courses);
+        }
+        
+        registeredCourses = coursesToRegister.map(course => course._id);
 
         // Update enrolled count for registered courses
         if (registeredCourses.length > 0) {
