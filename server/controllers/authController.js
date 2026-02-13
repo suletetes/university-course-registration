@@ -3,25 +3,17 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 // Sign up a new user
-const signUp = async (req, res) => {
+const signUp = async (req, res, next) => {
   try {
     const { name, regNo, email, password, level } = req.body;
-
-    // Validate input
-    if (!name || !regNo || !email || !password || !level) {
-      return res.status(400).json({
-        error: 'Validation Error',
-        message: 'Please provide all required fields: name, regNo, email, password, and level'
-      });
-    }
 
     // Check if user already exists
     const existingUser = await User.findOne({ $or: [{ email }, { regNo }] });
     if (existingUser) {
       return res.status(400).json({
         error: 'Validation Error',
-        message: existingUser.email === email 
-          ? 'Email already registered' 
+        message: existingUser.email === email
+          ? 'Email already registered'
           : 'Registration number already exists'
       });
     }
@@ -63,25 +55,14 @@ const signUp = async (req, res) => {
 
   } catch (error) {
     console.error('Sign up error:', error);
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'An error occurred during registration'
-    });
+    next(error); // Forward to error handler
   }
-};
+}
 
 // Sign in an existing user
-const signIn = async (req, res) => {
+const signIn = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-
-    // Validate input
-    if (!email || !password) {
-      return res.status(400).json({
-        error: 'Validation Error',
-        message: 'Please provide email and password'
-      });
-    }
 
     // Find user by email
     const user = await User.findOne({ email });
@@ -125,10 +106,7 @@ const signIn = async (req, res) => {
 
   } catch (error) {
     console.error('Sign in error:', error);
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'An error occurred during login'
-    });
+    next(error); // Forward to error handler
   }
 };
 

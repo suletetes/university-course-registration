@@ -2,7 +2,7 @@ const Course = require('../models/Course');
 const User = require('../models/User');
 
 // Get all available courses
-const getAllCourses = async (req, res) => {
+const getAllCourses = async (req, res, next) => {
   try {
     const { level, includeLevels } = req.query;
 
@@ -41,32 +41,14 @@ const getAllCourses = async (req, res) => {
 
   } catch (error) {
     console.error('Error fetching courses:', error);
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'An error occurred while fetching courses'
-    });
+    next(error); // Forward to error handler
   }
 };
 
 // Register courses for a student
-const registerCourses = async (req, res) => {
+const registerCourses = async (req, res, next) => {
   try {
     const { courseIds, userId } = req.body;
-
-    // Validate input
-    if (!courseIds || !Array.isArray(courseIds) || courseIds.length === 0) {
-      return res.status(400).json({ 
-        error: 'Validation Error',
-        message: 'Please provide an array of course IDs' 
-      });
-    }
-
-    if (!userId) {
-      return res.status(400).json({ 
-        error: 'Validation Error',
-        message: 'User ID is required' 
-      });
-    }
 
     // Fetch the courses from the database
     const courses = await Course.find({ _id: { $in: courseIds } });
@@ -115,15 +97,12 @@ const registerCourses = async (req, res) => {
 
   } catch (error) {
     console.error('Error registering courses:', error);
-    res.status(500).json({ 
-      error: 'Internal Server Error',
-      message: 'An error occurred while registering courses'
-    });
+    next(error); // Forward to error handler
   }
 };
 
 // Get registered courses for the logged-in student
-const getRegisteredCourses = async (req, res) => {
+const getRegisteredCourses = async (req, res, next) => {
   try {
     const userId = req.user?.id;
 
@@ -159,10 +138,7 @@ const getRegisteredCourses = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching registered courses:', error);
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'An error occurred while fetching registered courses'
-    });
+    next(error); // Forward to error handler
   }
 };
 

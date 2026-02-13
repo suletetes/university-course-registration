@@ -2,7 +2,7 @@ const Course = require('../models/Course');
 const User = require('../models/User');
 
 // Get all student slips with their registered courses
-const getAllStudentSlips = async (req, res) => {
+const getAllStudentSlips = async (req, res, next) => {
   try {
     // Find all users with role 'student' and populate their registered courses
     const students = await User.find({ role: 'student' })
@@ -18,15 +18,12 @@ const getAllStudentSlips = async (req, res) => {
 
   } catch (error) {
     console.error('Error fetching student slips:', error);
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'An error occurred while fetching student slips'
-    });
+    next(error); // Forward to error handler
   }
 };
 
 // Get admin dashboard stats
-const getAdminStats = async (req, res) => {
+const getAdminStats = async (req, res, next) => {
   try {
     const [studentCount, courseCount] = await Promise.all([
       User.countDocuments({ role: 'student' }),
@@ -42,15 +39,12 @@ const getAdminStats = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching admin stats:', error);
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'An error occurred while fetching admin stats'
-    });
+    next(error); // Forward to error handler
   }
 };
 
 // Get all courses (admin)
-const getAllCoursesAdmin = async (req, res) => {
+const getAllCoursesAdmin = async (req, res, next) => {
   try {
     const courses = await Course.find({}).sort({ level: 1, courseCode: 1 });
 
@@ -61,25 +55,14 @@ const getAllCoursesAdmin = async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching courses for admin:', error);
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'An error occurred while fetching courses'
-    });
+    next(error); // Forward to error handler
   }
 };
 
 // Create a new course (admin)
-const createCourse = async (req, res) => {
+const createCourse = async (req, res, next) => {
   try {
     const { courseCode, courseName, semester, creditUnit, level } = req.body;
-
-    if (!courseCode || !courseName || !semester || !creditUnit || !level) {
-      return res.status(400).json({
-        error: 'Validation Error',
-        message:
-          'Please provide courseCode, courseName, semester, creditUnit, and level',
-      });
-    }
 
     const existingCourse = await Course.findOne({
       courseCode: courseCode.toUpperCase(),
@@ -107,10 +90,7 @@ const createCourse = async (req, res) => {
     });
   } catch (error) {
     console.error('Error creating course:', error);
-    res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'An error occurred while creating course'
-    });
+    next(error); // Forward to error handler
   }
 };
 
