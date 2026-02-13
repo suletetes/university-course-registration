@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const exportRoutes = require('./routes/exportRoutes');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -46,6 +47,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/export', exportRoutes);
 
 // Error handling middleware (must be last)
 app.use(errorHandler);

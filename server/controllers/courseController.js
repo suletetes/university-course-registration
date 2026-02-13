@@ -22,40 +22,45 @@ const validatePrerequisites = (student, course) => {
 // Get all available courses
 const getAllCourses = async (req, res, next) => {
   try {
-    const { level, includeLevels } = req.query;
+    const { level, includeLevels, search, semester } = req.query;
 
-    // Validate that level is provided
-    if (!level) {
-      return res.status(400).json({
-        success: false,
-        status: 'error',
-        error: 'Validation Error',
-        message: 'Level is required. Please provide your current level.'
-      });
+    // Build query object
+    const query = {};
+
+    // Level filtering
+    if (level) {
+      let levelsToInclude = [level];
+      
+      if (includeLevels) {
+        const additionalLevels = includeLevels.split(',').map(l => l.trim());
+        levelsToInclude = [...new Set([...levelsToInclude, ...additionalLevels])];
+      }
+      
+      query.level = { $in: levelsToInclude };
     }
 
-    // Build the query to include current level and any carry-over levels
-    let levelsToInclude = [level];
-    
-    // If includeLevels is provided (comma-separated string of levels), add them
-    if (includeLevels) {
-      const additionalLevels = includeLevels.split(',').map(l => l.trim());
-      levelsToInclude = [...new Set([...levelsToInclude, ...additionalLevels])];
+    // Search filtering (case-insensitive regex for courseCode or courseName)
+    if (search) {
+      query.$or = [
+        { courseCode: { $regex: search, $options: 'i' } },
+        { courseName: { $regex: search, $options: 'i' } }
+      ];
     }
 
-    // Find courses that match any of the specified levels
-    const courses = await Course.find({ 
-      level: { $in: levelsToInclude } 
-    }).sort({ level: 1, courseCode: 1 });
+    // Semester filtering
+    if (semester) {
+      query.semester = Number(semester);
+    }
+
+    // Find courses that match the query
+    const courses = await Course.find(query).sort({ level: 1, courseCode: 1 });
 
     res.status(200).json({
       status: 'success',
       count: courses.length,
       currentLevel: level,
-      levelsIncluded: levelsToInclude,
-      message: levelsToInclude.length > 1 
-        ? 'Courses include carry-overs from previous levels' 
-        : 'Courses for your current level only',
+      levelsIncluded: level ? (includeLevels ? [level, ...includeLevels.split(',').map(l => l.trim())] : [level]) : undefined,
+      message: courses.length > 0 ? 'Courses retrieved successfully' : 'No courses found',
       data: courses
     });
 
