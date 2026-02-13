@@ -85,7 +85,7 @@ jobs:
       
       - name: Run client tests
         working-directory: ./client
-        run: npm test -- --coverage
+        run: npm run test:coverage
       
       - name: Upload client coverage
         uses: actions/upload-artifact@v4
