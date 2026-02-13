@@ -12,7 +12,9 @@
     "test:smoke": "node scripts/testSmokeEndpoints.js",
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --verbose"
+    "test:coverage": "jest --coverage --verbose",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
+    "eslint": "^10.0.0",
     "fast-check": "^4.5.3",
     "jest": "^30.2.0",
     "mongodb-memory-server": "^11.0.1",
