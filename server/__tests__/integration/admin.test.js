@@ -217,7 +217,7 @@ describe('Admin Endpoints', () => {
         courseName: 'Software Engineering',
         semester: 1,
         creditUnit: 3,
-        level: '400'
+        level: 400
       };
 
       const response = await request(app)
@@ -238,7 +238,7 @@ describe('Admin Endpoints', () => {
         courseName: 'Database Systems',
         semester: 1,
         creditUnit: 3,
-        level: '400'
+        level: 400
       };
 
       const response = await request(app)
@@ -256,7 +256,7 @@ describe('Admin Endpoints', () => {
         courseName: 'Test Course',
         semester: 1,
         creditUnit: 3,
-        level: '400'
+        level: 400
       };
 
       const response = await request(app)
@@ -272,7 +272,7 @@ describe('Admin Endpoints', () => {
         courseName: 'Test Course',
         semester: 1,
         creditUnit: 3,
-        level: '400'
+        level: 400
       };
 
       const response = await request(app)
@@ -288,7 +288,7 @@ describe('Admin Endpoints', () => {
         courseName: 'Test Course',
         semester: 1,
         creditUnit: 3,
-        level: '400'
+        level: 400
       };
 
       const response = await request(app)
@@ -297,7 +297,7 @@ describe('Admin Endpoints', () => {
         .send(courseData);
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toContain('courseCode');
+      expect(response.body.message).toContain('Course code is required');
     });
 
     it('should return 400 when courseName is missing', async () => {
@@ -305,7 +305,7 @@ describe('Admin Endpoints', () => {
         courseCode: 'CS405',
         semester: 1,
         creditUnit: 3,
-        level: '400'
+        level: 400
       };
 
       const response = await request(app)
@@ -314,7 +314,7 @@ describe('Admin Endpoints', () => {
         .send(courseData);
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toContain('courseName');
+      expect(response.body.message).toContain('Course name is required');
     });
 
     it('should return 400 when semester is missing', async () => {
@@ -322,7 +322,7 @@ describe('Admin Endpoints', () => {
         courseCode: 'CS406',
         courseName: 'Test Course',
         creditUnit: 3,
-        level: '400'
+        level: 400
       };
 
       const response = await request(app)
@@ -331,7 +331,7 @@ describe('Admin Endpoints', () => {
         .send(courseData);
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toContain('semester');
+      expect(response.body.message).toContain('Semester is required');
     });
 
     it('should return 400 when creditUnit is missing', async () => {
@@ -339,7 +339,7 @@ describe('Admin Endpoints', () => {
         courseCode: 'CS407',
         courseName: 'Test Course',
         semester: 1,
-        level: '400'
+        level: 400
       };
 
       const response = await request(app)
@@ -348,7 +348,7 @@ describe('Admin Endpoints', () => {
         .send(courseData);
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toContain('creditUnit');
+      expect(response.body.message).toContain('Credit unit is required');
     });
 
     it('should return 400 when level is missing', async () => {
@@ -365,7 +365,7 @@ describe('Admin Endpoints', () => {
         .send(courseData);
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toContain('level');
+      expect(response.body.message).toContain('Level is required');
     });
 
     it('should return 400 when courseCode already exists', async () => {
@@ -374,7 +374,7 @@ describe('Admin Endpoints', () => {
         courseName: 'First Course',
         semester: 1,
         creditUnit: 3,
-        level: '400'
+        level: 400
       };
 
       await request(app)
@@ -405,7 +405,7 @@ describe('Admin Endpoints', () => {
           courseName: 'First Course',
           semester: 1,
           creditUnit: 3,
-          level: '400'
+          level: 400
         });
 
       const response = await request(app)
@@ -416,7 +416,7 @@ describe('Admin Endpoints', () => {
           courseName: 'Duplicate Course',
           semester: 1,
           creditUnit: 3,
-          level: '400'
+          level: 400
         });
 
       expect(response.status).toBe(400);

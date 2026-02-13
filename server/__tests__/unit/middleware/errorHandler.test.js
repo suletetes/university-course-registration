@@ -37,6 +37,7 @@ describe('Error Handler Middleware', () => {
     expect(res.json).toHaveBeenCalledWith({
       success: false,
       status: 'error',
+      error: 'Internal Server Error',
       message: 'Something went wrong'
     });
   });
@@ -53,6 +54,7 @@ describe('Error Handler Middleware', () => {
     expect(res.json).toHaveBeenCalledWith({
       success: false,
       status: 'error',
+      error: 'Validation Error',
       message: 'Bad request'
     });
   });
@@ -94,6 +96,7 @@ describe('Error Handler Middleware', () => {
     expect(res.json).toHaveBeenCalledWith({
       success: false,
       status: 'error',
+      error: 'Validation Error',
       message: 'Invalid ID format'
     });
   });
@@ -112,6 +115,7 @@ describe('Error Handler Middleware', () => {
     expect(res.json).toHaveBeenCalledWith({
       success: false,
       status: 'error',
+      error: 'Validation Error',
       message: 'email already exists'
     });
   });
@@ -130,6 +134,7 @@ describe('Error Handler Middleware', () => {
     expect(res.json).toHaveBeenCalledWith({
       success: false,
       status: 'error',
+      error: 'Unauthorized',
       message: 'Invalid token'
     });
   });
@@ -148,6 +153,7 @@ describe('Error Handler Middleware', () => {
     expect(res.json).toHaveBeenCalledWith({
       success: false,
       status: 'error',
+      error: 'Unauthorized',
       message: 'Token expired'
     });
   });
@@ -213,6 +219,7 @@ describe('Error Handler Middleware', () => {
     expect(res.json).toHaveBeenCalledWith({
       success: false,
       status: 'error',
+      error: 'Internal Server Error',
       message: 'Internal Server Error'
     });
   });

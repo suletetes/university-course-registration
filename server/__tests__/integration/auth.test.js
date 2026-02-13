@@ -213,7 +213,7 @@ describe('Authentication Endpoints', () => {
         .send(duplicateUser);
 
       expect(response.status).toBe(400);
-      expect(response.body.status).toBe('error');
+      expect(response.body.error).toBe('Validation Error');
       expect(response.body.message).toContain('Registration number already exists');
     });
 
@@ -298,7 +298,7 @@ describe('Authentication Endpoints', () => {
 
       expect(response.status).toBe(400);
       expect(response.body.status).toBe('error');
-      expect(response.body.message).toContain('email and password');
+      expect(response.body.message).toContain('Email is required');
     });
 
     it('should return 400 when password is missing', async () => {
@@ -312,7 +312,7 @@ describe('Authentication Endpoints', () => {
 
       expect(response.status).toBe(400);
       expect(response.body.status).toBe('error');
-      expect(response.body.message).toContain('email and password');
+      expect(response.body.message).toContain('Password is required');
     });
 
     it('should return 401 with invalid email', async () => {
@@ -326,7 +326,7 @@ describe('Authentication Endpoints', () => {
         .send(loginData);
 
       expect(response.status).toBe(401);
-      expect(response.body.status).toBe('error');
+      expect(response.body.error).toBe('Unauthorized');
       expect(response.body.message).toContain('Invalid email or password');
     });
 
@@ -341,7 +341,7 @@ describe('Authentication Endpoints', () => {
         .send(loginData);
 
       expect(response.status).toBe(401);
-      expect(response.body.status).toBe('error');
+      expect(response.body.error).toBe('Unauthorized');
       expect(response.body.message).toContain('Invalid email or password');
     });
 

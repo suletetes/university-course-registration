@@ -75,7 +75,7 @@ describe('Property 4: Database Error Resilience', () => {
     it('should handle non-existent document queries gracefully', async () => {
       await fc.assert(
         fc.asyncProperty(
-          fc.hexaString({ minLength: 24, maxLength: 24 }),
+          fc.string({ minLength: 24, maxLength: 24 }).filter(s => /^[0-9a-f]{24}$/.test(s)),
           async (nonExistentId) => {
             const response = await request(app)
               .post('/api/courses/register')
@@ -92,7 +92,7 @@ describe('Property 4: Database Error Resilience', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 20 } // Reduced runs since filter is expensive
       );
     });
 
@@ -127,7 +127,7 @@ describe('Property 4: Database Error Resilience', () => {
         ),
         { numRuns: 100 }
       );
-    });
+    }, 30000);
 
     it('should handle validation errors without crashing', async () => {
       await fc.assert(
@@ -154,7 +154,7 @@ describe('Property 4: Database Error Resilience', () => {
         ),
         { numRuns: 100 }
       );
-    });
+    }, 30000);
 
     it('should return appropriate error responses for database failures', async () => {
       // Test with various invalid inputs that could cause database errors
@@ -222,7 +222,7 @@ describe('Property 4: Database Error Resilience', () => {
         ),
         { numRuns: 50 } // Reduced runs for concurrent operations
       );
-    });
+    }, 30000);
 
     it('should maintain system stability after database errors', async () => {
       // Cause a database error

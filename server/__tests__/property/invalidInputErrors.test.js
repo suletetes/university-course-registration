@@ -104,17 +104,6 @@ describe('Property 1: Invalid Input Error Responses', () => {
     });
   });
 
-  describe('GET /api/courses/all - Invalid query parameters should return 400', () => {
-    it('should return 400 when level parameter is missing', async () => {
-      const response = await request(app)
-        .get('/api/courses/all');
-
-      expect(response.status).toBe(400);
-      expect(response.body.status).toBe('error');
-      expect(response.body.message).toContain('Level is required');
-    });
-  });
-
   describe('POST /api/courses/register - Invalid inputs should return 400-level errors', () => {
     it('should return 400 for invalid courseIds format', async () => {
       await fc.assert(

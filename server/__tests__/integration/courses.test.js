@@ -35,13 +35,13 @@ describe('Course Endpoints', () => {
       expect(response.body.data.every(c => c.level === '100')).toBe(true);
     });
 
-    it('should return 400 when level is not provided', async () => {
+    it('should return all courses when level is not provided', async () => {
       const response = await request(app)
         .get('/api/courses/all');
 
-      expect(response.status).toBe(400);
-      expect(response.body.status).toBe('error');
-      expect(response.body.message).toContain('Level is required');
+      expect(response.status).toBe(200);
+      expect(response.body.status).toBe('success');
+      expect(response.body.data).toBeDefined();
     });
 
     it('should include carry-over levels when includeLevels is provided', async () => {
@@ -52,7 +52,7 @@ describe('Course Endpoints', () => {
       expect(response.body.count).toBe(4); // 2 from 100 + 2 from 200
       expect(response.body.levelsIncluded).toContain('100');
       expect(response.body.levelsIncluded).toContain('200');
-      expect(response.body.message).toContain('carry-overs');
+      expect(response.body.message).toContain('Courses retrieved successfully');
     });
 
     it('should handle multiple carry-over levels', async () => {
@@ -137,7 +137,7 @@ describe('Course Endpoints', () => {
         .send({ userId: student._id });
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toContain('array of course IDs');
+      expect(response.body.message).toContain('Course IDs are required');
     });
 
     it('should return 400 when courseIds is not an array', async () => {
@@ -147,7 +147,7 @@ describe('Course Endpoints', () => {
         .send({ courseIds: 'not-an-array', userId: student._id });
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toContain('array of course IDs');
+      expect(response.body.message).toContain('Course IDs must be an array');
     });
 
     it('should return 400 when courseIds is empty array', async () => {
@@ -157,7 +157,7 @@ describe('Course Endpoints', () => {
         .send({ courseIds: [], userId: student._id });
 
       expect(response.status).toBe(400);
-      expect(response.body.message).toContain('array of course IDs');
+      expect(response.body.message).toContain('At least one course ID is required');
     });
 
     it('should return 400 when userId is missing', async () => {
