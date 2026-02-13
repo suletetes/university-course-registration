@@ -8,6 +8,7 @@ const authRoutes = require('./routes/authRoutes');
 const courseRoutes = require('./routes/courseRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const exportRoutes = require('./routes/exportRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -48,6 +49,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/export', exportRoutes);
+app.use('/api/profile', profileRoutes);
 
 // Error handling middleware (must be last)
 app.use(errorHandler);

@@ -103,7 +103,7 @@ const validateCourseCreation = (req, res, next) => {
   }
 
   // Validate level enum
-  if (level !== undefined && level !== null && ![100, 200, 300, 400, 500].includes(level)) {
+  if (level !== undefined && level !== null && !['100', '200', '300', '400', '500'].includes(level)) {
     errors.push('Invalid level. Must be one of: 100, 200, 300, 400, 500');
   }
 
