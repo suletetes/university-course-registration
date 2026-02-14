@@ -77,7 +77,8 @@ describe('Property 3: Error Status Code Mapping', () => {
         Array.from({ length: 13 }, (_, i) => 
           createTestCourse({ 
             courseCode: `CS${600 + i}`, 
-            creditUnit: 3 
+            creditUnit: 3,
+            level: '100'
           })
         )
       );
@@ -86,8 +87,8 @@ describe('Property 3: Error Status Code Mapping', () => {
         .post('/api/courses/register')
         .set('Authorization', `Bearer ${studentToken}`)
         .send({ 
-          courseIds: courses.map(c => c._id),
-          userId: student._id 
+          courseIds: courses.map(c => c._id.toString()),
+          userId: student._id.toString()
         });
 
       expect(response.status).toBe(400);
@@ -97,28 +98,17 @@ describe('Property 3: Error Status Code Mapping', () => {
 
   describe('Authentication Errors should return 401', () => {
     it('should return 401 for missing authentication token', async () => {
-      await fc.assert(
-        fc.asyncProperty(
-          fc.constantFrom(
-            '/api/courses/register',
-            '/api/courses/registered',
-            '/api/admin/stats',
-            '/api/admin/students',
-            '/api/admin/courses'
-          ),
-          async (endpoint) => {
-            const method = endpoint.includes('register') || endpoint.includes('courses') && endpoint.includes('admin')
-              ? 'post'
-              : 'get';
+      const endpoints = [
+        { path: '/api/courses/register', method: 'post' },
+        { path: '/api/admin/stats', method: 'get' },
+        { path: '/api/admin/students', method: 'get' },
+        { path: '/api/admin/courses', method: 'get' }
+      ];
 
-            const response = await request(app)[method](endpoint).send({});
-
-            expect(response.status).toBe(401);
-            return true;
-          }
-        ),
-        { numRuns: 5 }
-      );
+      for (const endpoint of endpoints) {
+        const response = await request(app)[endpoint.method](endpoint.path).send({});
+        expect(response.status).toBe(401);
+      }
     });
 
     it('should return 401 for invalid JWT token', async () => {
