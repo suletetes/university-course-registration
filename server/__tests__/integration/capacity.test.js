@@ -192,7 +192,7 @@ describe('Course Capacity Integration Tests', () => {
 
   it('should not increment enrolledCount if registration fails', async () => {
     // Create a course that will cause credit limit error
-    const course2 = await Course.create({
+    await Course.create({
       courseCode: 'CSC202',
       courseName: 'Heavy Course',
       semester: 1,

@@ -131,13 +131,27 @@ const updateCourse = async (req, res, next) => {
     }
 
     // Update fields
-    if (courseCode) course.courseCode = courseCode.toUpperCase();
-    if (courseName) course.courseName = courseName;
-    if (semester) course.semester = semester;
-    if (creditUnit) course.creditUnit = creditUnit;
-    if (level) course.level = level;
-    if (capacity !== undefined) course.capacity = capacity;
-    if (prerequisites !== undefined) course.prerequisites = prerequisites;
+    if (courseCode) {
+      course.courseCode = courseCode.toUpperCase();
+    }
+    if (courseName) {
+      course.courseName = courseName;
+    }
+    if (semester) {
+      course.semester = semester;
+    }
+    if (creditUnit) {
+      course.creditUnit = creditUnit;
+    }
+    if (level) {
+      course.level = level;
+    }
+    if (capacity !== undefined) {
+      course.capacity = capacity;
+    }
+    if (prerequisites !== undefined) {
+      course.prerequisites = prerequisites;
+    }
 
     await course.save();
 

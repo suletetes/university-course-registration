@@ -4,13 +4,11 @@ const request = require('supertest');
 const mongoose = require('mongoose');
 const createTestApp = require('../testApp');
 const { createTestStudent, createTestAdmin } = require('../testUtils');
-const User = require('../../models/User');
-const Course = require('../../models/Course');
 
 const app = createTestApp();
 
 describe('Property 4: Database Error Resilience', () => {
-  let student, studentToken, admin, adminToken;
+  let student, studentToken, adminToken;
 
   beforeAll(async () => {
     process.env.JWT_SECRET = 'test_jwt_secret';
@@ -19,7 +17,6 @@ describe('Property 4: Database Error Resilience', () => {
     studentToken = studentResult.token;
 
     const adminResult = await createTestAdmin();
-    admin = adminResult.admin;
     adminToken = adminResult.token;
   });
 
@@ -197,14 +194,14 @@ describe('Property 4: Database Error Resilience', () => {
           fc.array(fc.integer({ min: 1, max: 10 }), { minLength: 5, maxLength: 10 }),
           async (operations) => {
             // Simulate concurrent requests
-            const promises = operations.map(async (op) => {
+            const promises = operations.map(async () => {
               try {
                 const response = await request(app)
                   .get('/api/admin/stats')
                   .set('Authorization', `Bearer ${adminToken}`);
                 
                 return response.status;
-              } catch (error) {
+              } catch (_error) {
                 return 500;
               }
             });

@@ -3,12 +3,11 @@ const fc = require('fast-check');
 const request = require('supertest');
 const createTestApp = require('../testApp');
 const { createTestStudent, createTestAdmin, createTestCourse } = require('../testUtils');
-const User = require('../../models/User');
 
 const app = createTestApp();
 
 describe('Property 3: Error Status Code Mapping', () => {
-  let student, studentToken, admin, adminToken;
+  let student, studentToken, adminToken;
 
   beforeAll(async () => {
     process.env.JWT_SECRET = 'test_jwt_secret';
@@ -17,7 +16,6 @@ describe('Property 3: Error Status Code Mapping', () => {
     studentToken = studentResult.token;
 
     const adminResult = await createTestAdmin();
-    admin = adminResult.admin;
     adminToken = adminResult.token;
   });
 

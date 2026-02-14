@@ -1,6 +1,6 @@
 const request = require('supertest');
 const createTestApp = require('../testApp');
-const { createTestStudent, createTestCourse, createTestCourses, generateToken } = require('../testUtils');
+const { createTestStudent, createTestCourse, createTestCourses } = require('../testUtils');
 const Course = require('../../models/Course');
 const User = require('../../models/User');
 

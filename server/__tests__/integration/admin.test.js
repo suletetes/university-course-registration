@@ -1,19 +1,18 @@
 const request = require('supertest');
 const createTestApp = require('../testApp');
-const { createTestStudent, createTestAdmin, createTestCourse, createTestCourses } = require('../testUtils');
+const { createTestStudent, createTestAdmin, createTestCourses } = require('../testUtils');
 const Course = require('../../models/Course');
 const User = require('../../models/User');
 
 const app = createTestApp();
 
 describe('Admin Endpoints', () => {
-  let admin, adminToken, student, studentToken;
+  let adminToken, student, studentToken;
 
   beforeEach(async () => {
     process.env.JWT_SECRET = 'test_jwt_secret';
     
     const adminResult = await createTestAdmin();
-    admin = adminResult.admin;
     adminToken = adminResult.token;
 
     const studentResult = await createTestStudent();
