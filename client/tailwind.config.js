@@ -30,6 +30,7 @@ export default {
         'float': 'float 6s ease-in-out infinite',
         'float-delayed': 'float 8s ease-in-out infinite',
         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'fade-in': 'fade-in 0.3s ease-out',
       },
       keyframes: {
         'gradient-shift': {
@@ -46,6 +47,16 @@ export default {
           },
           '50%': {
             transform: 'translateY(-20px)',
+          },
+        },
+        'fade-in': {
+          '0%': {
+            opacity: '0',
+            transform: 'scale(0.95)',
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'scale(1)',
           },
         },
       },

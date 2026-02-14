@@ -22,6 +22,9 @@ router.get('/students', protect, isAdmin, getAllStudentSlips);
 // GET /stats - Admin dashboard stats (protected - admin only)
 router.get('/stats', protect, isAdmin, getAdminStats);
 
+// GET /courses/archived - Get archived courses (protected - admin only) - MUST come before /:id routes
+router.get('/courses/archived', protect, isAdmin, getArchivedCourses);
+
 // GET /courses - Get all courses (protected - admin only)
 router.get('/courses', protect, isAdmin, getAllCoursesAdmin);
 
@@ -36,9 +39,6 @@ router.put('/courses/:id/archive', protect, isAdmin, archiveCourse);
 
 // PUT /courses/:id/restore - Restore an archived course (protected - admin only)
 router.put('/courses/:id/restore', protect, isAdmin, restoreCourse);
-
-// GET /courses/archived - Get archived courses (protected - admin only)
-router.get('/courses/archived', protect, isAdmin, getArchivedCourses);
 
 // GET /registration-period - Get registration period (protected - admin only)
 router.get('/registration-period', protect, isAdmin, getRegistrationPeriod);
