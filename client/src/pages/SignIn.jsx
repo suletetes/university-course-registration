@@ -125,9 +125,9 @@ function SignIn() {
               />
               Remember me
             </label>
-            <a className="font-medium text-slate-700 hover:text-accent-500" href="#">
+            {/* <a className="font-medium text-slate-700 hover:text-accent-500" href="#">
               Forgot password?
-            </a>
+            </a> */}
           </div>
 
           <PrimaryButton>{loading ? 'Signing in...' : 'Sign in'}</PrimaryButton>

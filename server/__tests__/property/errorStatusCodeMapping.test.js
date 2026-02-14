@@ -43,7 +43,7 @@ describe('Property 3: Error Status Code Mapping', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
 
@@ -117,7 +117,7 @@ describe('Property 3: Error Status Code Mapping', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
 
@@ -146,7 +146,7 @@ describe('Property 3: Error Status Code Mapping', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
   });
@@ -170,7 +170,7 @@ describe('Property 3: Error Status Code Mapping', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
 

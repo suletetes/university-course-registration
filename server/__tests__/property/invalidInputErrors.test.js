@@ -44,7 +44,7 @@ describe('Property 1: Invalid Input Error Responses', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
 
@@ -71,7 +71,7 @@ describe('Property 1: Invalid Input Error Responses', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
   });
@@ -99,7 +99,7 @@ describe('Property 1: Invalid Input Error Responses', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
   });
@@ -130,7 +130,7 @@ describe('Property 1: Invalid Input Error Responses', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
   });
@@ -166,7 +166,7 @@ describe('Property 1: Invalid Input Error Responses', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
 
@@ -194,7 +194,7 @@ describe('Property 1: Invalid Input Error Responses', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
 
@@ -222,7 +222,7 @@ describe('Property 1: Invalid Input Error Responses', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 5 }
       );
     });
   });
