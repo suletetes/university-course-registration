@@ -71,7 +71,9 @@ async function createTestCourse(overrides = {}) {
     courseName: 'Introduction to Computer Science',
     semester: 1,
     creditUnit: 3,
-    level: 100,
+    level: '100', // Changed from 100 to '100' to match Course model
+    isActive: true,
+    isArchived: false,
     ...overrides
   };
 

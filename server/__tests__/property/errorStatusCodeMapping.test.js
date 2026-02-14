@@ -72,25 +72,32 @@ describe('Property 3: Error Status Code Mapping', () => {
     });
 
     it('should return 400 for credit limit exceeded', async () => {
-      // Create courses that exceed 36 units (13 courses × 3 units = 39 units)
-      const courses = await Promise.all(
-        Array.from({ length: 13 }, (_, i) => 
+      // Create 13 courses with 3 units each (39 total units > 36 limit)
+      const coursePromises = [];
+      for (let i = 0; i < 13; i++) {
+        coursePromises.push(
           createTestCourse({ 
-            courseCode: `CS${600 + i}`, 
-            courseName: `Test Course ${600 + i}`,
+            courseCode: `CRED${600 + i}`, 
+            courseName: `Credit Test Course ${i}`,
             creditUnit: 3,
             level: '100',
             semester: 1,
             isActive: true,
             isArchived: false
           })
-        )
-      );
+        );
+      }
+      
+      const courses = await Promise.all(coursePromises);
+      
+      // Verify all courses were created successfully
+      expect(courses.length).toBe(13);
+      courses.forEach(course => {
+        expect(course._id).toBeDefined();
+        expect(course.courseCode).toBeDefined();
+      });
 
-      // Verify courses were created
-      expect(courses).toHaveLength(13);
-      expect(courses.every(c => c._id)).toBe(true);
-
+      // Try to register for all courses (should exceed 36 unit limit)
       const response = await request(app)
         .post('/api/courses/register')
         .set('Authorization', `Bearer ${studentToken}`)
@@ -99,6 +106,7 @@ describe('Property 3: Error Status Code Mapping', () => {
           userId: student._id.toString()
         });
 
+      // Should return 400 for credit limit exceeded
       expect(response.status).toBe(400);
       expect(response.body.message).toContain('Credit unit limit exceeded');
     });
