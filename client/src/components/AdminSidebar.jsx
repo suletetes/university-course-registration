@@ -45,14 +45,22 @@ function AdminSidebar({ user, onSignOut }) {
           </p>
           <p className="text-xs text-slate-500">{user?.email}</p>
         </div>
-        <button
-          className="flex items-center gap-2 text-xs font-semibold text-rose-600"
-          type="button"
-          onClick={onSignOut}
-        >
-          <LogoutIcon className="h-4 w-4" />
-          Sign out
-        </button>
+        <div className="flex gap-2">
+          <NavLink
+            to="/profile"
+            className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-center text-xs font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
+            Profile
+          </NavLink>
+          <button
+            className="flex items-center justify-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-rose-600 transition hover:bg-rose-50"
+            type="button"
+            onClick={onSignOut}
+          >
+            <LogoutIcon className="h-4 w-4" />
+            Sign out
+          </button>
+        </div>
       </div>
     </aside>
   )

@@ -14,8 +14,6 @@ import useRegistration from '../hooks/useRegistration.js'
 import useAuthSession from '../hooks/useAuthSession.js'
 
 function SignIn() {
-  const heroImage =
-    'https://images.unsplash.com/photo-1528460033278-a6ba57020470?auto=format&fit=crop&w=1200&q=80'
   const [showPassword, setShowPassword] = useState(false)
   const [form, setForm] = useState({ email: '', password: '' })
   const [status, setStatus] = useState(null)
@@ -60,7 +58,7 @@ function SignIn() {
   }
 
   return (
-    <AuthLayout heroImage={heroImage} badgeText="Bayero University Kano" badgePill="Group ??">
+    <AuthLayout badgeText="Bayero University Kano" badgePill="Group ??">
       <div className="space-y-7">
         <div className="fade-up text-center">
           <p className="text-xs uppercase tracking-[0.35em] text-slate-400">
@@ -125,9 +123,9 @@ function SignIn() {
               />
               Remember me
             </label>
-            <a className="font-medium text-slate-700 hover:text-accent-500" href="#">
+            {/* <a className="font-medium text-slate-700 hover:text-accent-500" href="#">
               Forgot password?
-            </a>
+            </a> */}
           </div>
 
           <PrimaryButton>{loading ? 'Signing in...' : 'Sign in'}</PrimaryButton>

@@ -40,13 +40,34 @@ const errorHandler = (err, req, res, next) => {
     message = 'Token expired';
   }
 
-  // Send error response
+  // Send error response with consistent format
   res.status(statusCode).json({
     success: false,
     status: 'error',
+    error: getErrorType(statusCode),
     message: message,
     ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
   });
 };
+
+// Helper function to map status codes to error types
+function getErrorType(statusCode) {
+  if (statusCode >= 400 && statusCode < 500) {
+    if (statusCode === 400) {
+      return 'Validation Error';
+    }
+    if (statusCode === 401) {
+      return 'Unauthorized';
+    }
+    if (statusCode === 403) {
+      return 'Forbidden';
+    }
+    if (statusCode === 404) {
+      return 'Not Found';
+    }
+    return 'Client Error';
+  }
+  return 'Internal Server Error';
+}
 
 module.exports = errorHandler;

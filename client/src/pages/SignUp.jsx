@@ -14,8 +14,6 @@ import levels from '../constants/levels.js'
 import api from '../lib/api.js'
 
 function SignUp() {
-  const heroImage =
-    'https://images.unsplash.com/photo-1528460033278-a6ba57020470?auto=format&fit=crop&w=1200&q=80'
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [form, setForm] = useState({
@@ -69,7 +67,7 @@ function SignUp() {
   }
 
   return (
-    <AuthLayout heroImage={heroImage} badgeText="Bayero University Kano" badgePill="Group ??">
+    <AuthLayout badgeText="Bayero University Kano" badgePill="Group ??">
       <div className="space-y-7">
         <div className="fade-up text-center">
           <p className="text-xs uppercase tracking-[0.35em] text-slate-400">

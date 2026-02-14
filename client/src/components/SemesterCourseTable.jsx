@@ -76,6 +76,19 @@ function SemesterCourseTable({
                       <span>Semester {selectedCourse.semester}</span>
                       <span>{selectedCourse.creditUnit} units</span>
                       <span>Level {selectedCourse.level}</span>
+                      <span className="text-slate-600">
+                        {selectedCourse.prerequisites && selectedCourse.prerequisites.length > 0
+                          ? `Prerequisites: ${selectedCourse.prerequisites.join(', ')}`
+                          : 'No prerequisites'}
+                      </span>
+                      <span className={selectedCourse.isFull ? 'text-red-600 font-semibold' : 'text-green-600'}>
+                        {selectedCourse.availableSeats !== undefined
+                          ? `${selectedCourse.availableSeats}/${selectedCourse.capacity} seats available`
+                          : 'Capacity info unavailable'}
+                      </span>
+                      {selectedCourse.isFull && (
+                        <span className="text-xs text-red-600 font-semibold">FULL</span>
+                      )}
                     </div>
                   ) : (
                     <span className="text-slate-400">No course selected</span>

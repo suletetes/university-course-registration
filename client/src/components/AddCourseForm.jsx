@@ -8,6 +8,7 @@ const initialForm = {
   semester: '1',
   creditUnit: '2',
   level: levels[0],
+  capacity: '50',
 }
 
 function AddCourseForm({ status, loading, onSubmit }) {
@@ -26,6 +27,7 @@ function AddCourseForm({ status, loading, onSubmit }) {
       semester: Number(form.semester),
       creditUnit: Number(form.creditUnit),
       level: form.level,
+      capacity: Number(form.capacity),
     }
 
     const result = await onSubmit(payload)
@@ -115,6 +117,21 @@ function AddCourseForm({ status, loading, onSubmit }) {
               ))}
             </select>
           </div>
+        </div>
+        <div className="grid gap-2">
+          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+            Capacity
+          </label>
+          <input
+            className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm focus:border-accent-400 focus:outline-none focus:ring-4 focus:ring-accent-100"
+            name="capacity"
+            type="number"
+            min="1"
+            value={form.capacity}
+            onChange={handleChange}
+            placeholder="50"
+            required
+          />
         </div>
 
         {status ? (

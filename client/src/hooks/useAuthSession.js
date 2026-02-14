@@ -21,12 +21,20 @@ function useAuthSession() {
     sessionStorage.removeItem(storageKeys.auth)
   }
 
+  const updateUser = (updatedUser) => {
+    if (auth) {
+      const updatedAuth = { ...auth, user: { ...auth.user, ...updatedUser } }
+      sessionStorage.setItem(storageKeys.auth, JSON.stringify(updatedAuth))
+    }
+  }
+
   return {
     auth,
     user,
     token,
     setAuth,
     clearAuth,
+    updateUser,
   }
 }
 
