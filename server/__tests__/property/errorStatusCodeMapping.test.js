@@ -7,15 +7,18 @@ const { createTestStudent, createTestAdmin, createTestCourse } = require('../tes
 const app = createTestApp();
 
 describe('Property 3: Error Status Code Mapping', () => {
-  let student, studentToken, adminToken;
+  let student, studentToken, admin, adminToken;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     process.env.JWT_SECRET = 'test_jwt_secret';
+    
+    // Create student and admin before each test (since afterEach clears DB)
     const studentResult = await createTestStudent();
     student = studentResult.student;
     studentToken = studentResult.token;
 
     const adminResult = await createTestAdmin();
+    admin = adminResult.admin;
     adminToken = adminResult.token;
   });
 
