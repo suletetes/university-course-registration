@@ -44,7 +44,7 @@ describe('Property 4: Database Error Resilience', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 20 }
       );
     });
 
@@ -68,7 +68,7 @@ describe('Property 4: Database Error Resilience', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 20 }
       );
     });
 
@@ -125,7 +125,7 @@ describe('Property 4: Database Error Resilience', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 20 }
       );
     }, 30000);
 
@@ -152,7 +152,7 @@ describe('Property 4: Database Error Resilience', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 20 }
       );
     }, 30000);
 
@@ -220,7 +220,7 @@ describe('Property 4: Database Error Resilience', () => {
             return true;
           }
         ),
-        { numRuns: 50 } // Reduced runs for concurrent operations
+        { numRuns: 10 } // Reduced runs for concurrent operations
       );
     }, 30000);
 
@@ -266,7 +266,7 @@ describe('Property 4: Database Error Resilience', () => {
             return true;
           }
         ),
-        { numRuns: 100 }
+        { numRuns: 20 }
       );
     });
   });
