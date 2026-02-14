@@ -241,13 +241,11 @@ describe('Authentication Endpoints', () => {
   });
 
   describe('POST /api/auth/login', () => {
-    let testUser;
-
-    beforeAll(async () => {
-      // Create test user ONCE for all login tests (not before each)
+    // Recreate test user before each login test since afterEach clears the database
+    beforeEach(async () => {
       // Use bcrypt rounds of 1 for tests (much faster)
       const hashedPassword = await bcrypt.hash('password123', 1);
-      testUser = await User.create({
+      await User.create({
         name: 'Login Test User',
         regNo: 'UG15/CS/4001',
         email: 'logintest@test.com',

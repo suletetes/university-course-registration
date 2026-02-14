@@ -216,7 +216,7 @@ describe('Admin Endpoints', () => {
         courseName: 'Software Engineering',
         semester: 1,
         creditUnit: 3,
-        level: 400
+        level: '400'
       };
 
       const response = await request(app)
@@ -237,7 +237,7 @@ describe('Admin Endpoints', () => {
         courseName: 'Database Systems',
         semester: 1,
         creditUnit: 3,
-        level: 400
+        level: '400'
       };
 
       const response = await request(app)
@@ -255,7 +255,7 @@ describe('Admin Endpoints', () => {
         courseName: 'Test Course',
         semester: 1,
         creditUnit: 3,
-        level: 400
+        level: '400'
       };
 
       const response = await request(app)
@@ -271,7 +271,7 @@ describe('Admin Endpoints', () => {
         courseName: 'Test Course',
         semester: 1,
         creditUnit: 3,
-        level: 400
+        level: '400'
       };
 
       const response = await request(app)
@@ -287,7 +287,7 @@ describe('Admin Endpoints', () => {
         courseName: 'Test Course',
         semester: 1,
         creditUnit: 3,
-        level: 400
+        level: '400'
       };
 
       const response = await request(app)
@@ -304,7 +304,7 @@ describe('Admin Endpoints', () => {
         courseCode: 'CS405',
         semester: 1,
         creditUnit: 3,
-        level: 400
+        level: '400'
       };
 
       const response = await request(app)
@@ -321,7 +321,7 @@ describe('Admin Endpoints', () => {
         courseCode: 'CS406',
         courseName: 'Test Course',
         creditUnit: 3,
-        level: 400
+        level: '400'
       };
 
       const response = await request(app)
@@ -338,7 +338,7 @@ describe('Admin Endpoints', () => {
         courseCode: 'CS407',
         courseName: 'Test Course',
         semester: 1,
-        level: 400
+        level: '400'
       };
 
       const response = await request(app)
@@ -373,7 +373,7 @@ describe('Admin Endpoints', () => {
         courseName: 'First Course',
         semester: 1,
         creditUnit: 3,
-        level: 400
+        level: '400'
       };
 
       await request(app)
@@ -404,7 +404,7 @@ describe('Admin Endpoints', () => {
           courseName: 'First Course',
           semester: 1,
           creditUnit: 3,
-          level: 400
+          level: '400'
         });
 
       const response = await request(app)
@@ -415,7 +415,7 @@ describe('Admin Endpoints', () => {
           courseName: 'Duplicate Course',
           semester: 1,
           creditUnit: 3,
-          level: 400
+          level: '400'
         });
 
       expect(response.status).toBe(400);
