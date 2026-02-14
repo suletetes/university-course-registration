@@ -22,58 +22,58 @@ const seedUsers = async () => {
     const usersData = [
       // Students at different levels
       {
-        name: 'John Doe',
+        name: 'Suleiman Abdulkadir',
         regNo: 'UG15/CS/1001',
-        email: 'john.doe@student.edu',
+        email: 'suleiman.abdulkadir@student.edu',
         level: '100',
         role: 'student'
       },
       {
-        name: 'Jane Smith',
+        name: 'Usman Dayyubu',
         regNo: 'UG15/CS/1002',
-        email: 'jane.smith@student.edu',
+        email: 'usman.dayyubu@student.edu',
         level: '100',
         role: 'student'
       },
       {
-        name: 'Michael Johnson',
+        name: 'Abdulhalim Ibrahim',
         regNo: 'UG15/CS/2001',
-        email: 'michael.johnson@student.edu',
+        email: 'abdulhalim.ibrahim@student.edu',
         level: '200',
         role: 'student'
       },
       {
-        name: 'Sarah Williams',
+        name: 'Amina Yusuf',
         regNo: 'UG15/CS/2002',
-        email: 'sarah.williams@student.edu',
+        email: 'amina.yusuf@student.edu',
         level: '200',
         role: 'student'
       },
       {
-        name: 'David Brown',
+        name: 'Fatima Muhammad',
         regNo: 'UG15/CS/3001',
-        email: 'david.brown@student.edu',
+        email: 'fatima.muhammad@student.edu',
         level: '300',
         role: 'student'
       },
       {
-        name: 'Emily Davis',
+        name: 'Ibrahim Aliyu',
         regNo: 'UG15/CS/3002',
-        email: 'emily.davis@student.edu',
+        email: 'ibrahim.aliyu@student.edu',
         level: '300',
         role: 'student'
       },
       {
-        name: 'James Wilson',
+        name: 'Aisha Bello',
         regNo: 'UG15/CS/4001',
-        email: 'james.wilson@student.edu',
+        email: 'aisha.bello@student.edu',
         level: '400',
         role: 'student'
       },
       {
-        name: 'Olivia Martinez',
+        name: 'Musa Garba',
         regNo: 'UG15/CS/4002',
-        email: 'olivia.martinez@student.edu',
+        email: 'musa.garba@student.edu',
         level: '400',
         role: 'student'
       },
@@ -86,9 +86,9 @@ const seedUsers = async () => {
         role: 'admin'
       },
       {
-        name: 'Dr. Robert Taylor',
+        name: 'Dr. Kabir Sani',
         regNo: 'UG15/CS/ADMIN02',
-        email: 'robert.taylor@university.edu',
+        email: 'kabir.sani@university.edu',
         level: '100',
         role: 'admin'
       }
