@@ -475,8 +475,7 @@ For questions, issues, or suggestions, please:
   <p>Made with care by the University Course Registration System team</p>
   <p>
     <a href="CONTRIBUTING.md">Contributing</a> •
-    <a href="LICENSE.md">License</a> •
-    <a href="https://github.com/your-username/university-course-registration/issues">Issues</a>
+    <a href="LICENSE.md">License</a>
   </p>
 </div>
 
